@@ -22,4 +22,5 @@ class PostsController < ApplicationController
     flash["notice"] = "You must login first."
     redirect_to "/login"
   end
+  end
 end
