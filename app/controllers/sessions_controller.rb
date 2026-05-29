@@ -1,10 +1,30 @@
 class SessionsController < ApplicationController
   def new
   end
-  
+
   def create
-    # TODO: authenticate user
-    flash["notice"] = "Nope."
+    @user = User.find_by({ "email" => params["email"] })
+
+    if @user == nil
+      flash["notice"] = "No user found."
+      redirect_to "/login"
+
+    elsif @user.authenticate(params["password"])
+      session["user_id"] = @user.id
+
+      flash["notice"] = "Logged in successfully."
+      redirect_to "/posts"
+
+    else
+      flash["notice"] = "Incorrect password."
+      redirect_to "/login"
+    end
+  end
+
+  def destroy
+    session["user_id"] = nil
+
+    flash["notice"] = "Logged out."
     redirect_to "/login"
   end
 end

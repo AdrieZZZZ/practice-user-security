@@ -5,7 +5,7 @@
         <%# TODO: display the name of the user who created the post %>
         <%# 1. find user who created post %>
         <%# 2. handle any potential bad data where the post is missing a user %>
-        anonymous
+        <%= post.user.first_name %>
       </h4>
       <img src="<%= post["image"] %>" class="img-fluid w-full">
       <p><%= post["body"] %></p>
